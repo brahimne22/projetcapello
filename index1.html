@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .menu-container {
+            position: relative;
+            max-width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .menu-page {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .menu-page.active {
+            left: 0;
+        }
+
+        .menu-page img {
+            width: 100%; /* Remplir la largeur de l'écran */
+            height: auto; /* Ajuster la hauteur automatiquement */
+            max-height: 100vh; /* Ne pas dépasser la hauteur de l'écran */
+            object-fit: cover; /* Remplir l'espace sans déformer l'image */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <!-- Pages for the menu images -->
+        <div class="menu-page active">
+            <img src="1.jpeg" alt="Menu Page 1">
+        </div>
+        <div class="menu-page">
+            <img src="2.jpeg" alt="Menu Page 2">
+        </div>
+        <div class="menu-page">
+            <img src="3.jpeg" alt="Menu Page 3">
+        </div>
+        <div class="menu-page">
+            <img src="4.jpeg" alt="Menu Page 4">
+        </div>
+        <div class="menu-page">
+            <img src="5.jpeg" alt="Menu Page 5">
+        </div>
+        <div class="menu-page">
+            <img src="6.jpeg" alt="Menu Page 6">
+        </div>
+        <div class="menu-page">
+            <img src="7.jpeg" alt="Menu Page 7">
+        </div>
+        <div class="menu-page">
+            <img src="8.jpeg" alt="Menu Page 8">
+        </div>
+        <div class="menu-page">
+            <img src="9.jpeg" alt="Menu Page 9">
+        </div>
+        <div class="menu-page">
+            <img src="10.jpeg" alt="Menu Page 10">
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.menu-page');
+        let startX = 0;
+        let endX = 0;
+
+        // Function to show the current page
+        function showPage(index) {
+            pages.forEach((page, i) => {
+                if (i === index) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+        }
+
+        // Handle touch events for swiping
+        document.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchmove', function (e) {
+            endX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function () {
+            if (startX - endX > 50) {
+                // Swipe left (next page)
+                if (currentPage < pages.length - 1) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            } else if (endX - startX > 50) {
+                // Swipe right (previous page)
+                if (currentPage > 0) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
